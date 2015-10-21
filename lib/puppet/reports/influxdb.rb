@@ -1,4 +1,3 @@
-require 'puppet'
 require 'yaml'
 require 'socket'
 
@@ -28,12 +27,12 @@ Puppet::Reports.register_report(:influxdb) do
     addr_info = Socket.getaddrinfo("#{self.host}", nil)
     Puppet.debug "Sending status for #{self.host} to InfluxDB server at #{INFLUXDB_SERVER}"
     influxdb = InfluxDB::Client.new("#{INFLUXDB_DB}", {
-      :host => INFLUXDB_SERVER,
-      :username => INFLUXDB_USER,
-      :password => INFLUXDB_PASS,
-      :port => INFLUXDB_PORT,
-      :server => INFLUXDB_SERVER,
-      :retry => 4
+      host: INFLUXDB_SERVER,
+      username: INFLUXDB_USER,
+      password: INFLUXDB_PASS,
+      port: INFLUXDB_PORT,
+      server: INFLUXDB_SERVER,
+      retry: 4
     })
     self.metrics.each { |metric,data|
       data.values.each { |val| 
@@ -41,9 +40,10 @@ Puppet::Reports.register_report(:influxdb) do
         value = val[2].to_f
 
         data = {
-          :host => "#{self.host}",
-          :value => value,
-          :ip => addr_info[0][3] # array of array's Really!
+          values: { host: "#{self.host}",
+                    value: value,
+                    ip: addr_info[0][3] #Array of array !
+          }
         }
         influxdb.write_point(key, data)
       }
