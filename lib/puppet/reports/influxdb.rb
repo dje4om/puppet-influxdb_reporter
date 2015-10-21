@@ -25,7 +25,7 @@ Puppet::Reports.register_report(:influxdb) do
   def process
     # InfluxDB needs the IP Address of the system
     addr_info = Socket.getaddrinfo("#{self.host}", nil)
-    Puppet.debug "Sending status for #{self.host} to InfluxDB server at #{INFLUXDB_SERVER}"
+    Puppet.info "Sending status for #{self.host} to InfluxDB server at #{INFLUXDB_SERVER}"
     influxdb = InfluxDB::Client.new("#{INFLUXDB_DB}", {
       host: INFLUXDB_SERVER,
       username: INFLUXDB_USER,
