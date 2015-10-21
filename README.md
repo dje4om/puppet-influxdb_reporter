@@ -12,14 +12,14 @@ A Puppet report processor for sending metrics to an [InfluxDB](http://influxdb.c
 Requirements
 ------------
 
-This has been tested with this versions but it should work with older versions:
+This has been tested with this versions but it should work with older versions of Puppet:
 
 * Puppet 4.2.2
 * PuppetServer 2.1.1
 * InfluxDB 0.9.4.2
 * Gem influxdb 0.2.2
 
-Will be tested: 
+Will be tested soon: 
 
 * Puppet 3.7.x / 3.8.x
 * Passenger Master & PuppetServer 1.1.2
@@ -34,7 +34,7 @@ Installation & Usage
   PuppetServer
         $ sudo puppetserver gem install influxdb
 
-You will need to restart your master
+You could have to restart your master depending on you deployment type.
 
 2.  Deploy influxdb_reporter as a module in your Puppet code environment
 
