@@ -29,9 +29,10 @@ Installation & Usage
 
 1.  Install the `influxdb` gem on your Puppet master
 
-  Legacy Webrick Masters or Passenger Masters
+Legacy Webrick Masters or Passenger Masters
         $ sudo gem install influxdb 
-  PuppetServer
+
+PuppetServer
         $ sudo puppetserver gem install influxdb
 
 You could have to restart your master depending on you deployment type.
