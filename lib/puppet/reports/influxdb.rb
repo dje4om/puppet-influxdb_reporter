@@ -19,12 +19,10 @@ Puppet::Reports.register_report(:influxdb) do
   INFLUXDB_DB = config[:influxdb_database]
 
   desc <<-DESC
-  Send notification of failed reports to an InfluxDB server.
+  Sends metrics from puppet agents reports to an InfluxDB server.
   DESC
 
   def process
-    # InfluxDB needs the IP Address of the system
-    addr_info = Socket.getaddrinfo("#{self.host}", nil)
     Puppet.info "Sending status for #{self.host} to InfluxDB server at #{INFLUXDB_SERVER}"
     influxdb = InfluxDB::Client.new("#{INFLUXDB_DB}", {
       host: INFLUXDB_SERVER,
@@ -40,11 +38,10 @@ Puppet::Reports.register_report(:influxdb) do
         value = val[2].to_f
 
         data = {
-          values: { host: "#{self.host}",
-                    value: value,
-                    ip: addr_info[0][3] #Array of array !
-          }
+          values: { value: value },
+          tags: { host: "#{self.host}"}
         }
+
         influxdb.write_point(key, data)
       }
     }
