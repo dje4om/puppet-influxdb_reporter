@@ -4,6 +4,10 @@ influxdb_reporter
 Just a little updated & tested version of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
 Thx to him for this great idea to collect metrics of agents in InfluxDB ;)
 
+Extended
+--------
+Work in progress : Push events from resources
+
 Description
 -----------
 
@@ -17,7 +21,7 @@ This has been tested with this versions but it should work with older versions o
 * Puppet 4.2.2 to Puppet 4.4.1
 * PuppetServer 2.1.1 to PuppetServer 2.3.1
 * InfluxDB 0.9.4.2 to InfluxDB 0.11.1
-* Gem influxdb 0.2.2
+* Gem influxdb 0.2.4
 
 Will be tested soon: 
 

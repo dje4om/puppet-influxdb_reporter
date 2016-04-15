@@ -3,6 +3,7 @@ require 'yaml'
 require 'socket'
 
 begin
+  # Note influxdb-ruby gem v0.2.4 minimum
   require 'influxdb'
 rescue LoadError => e
   Puppet.info "You need the `influxdb` gem to use the InfluxDB report"
@@ -40,11 +41,27 @@ Puppet::Reports.register_report(:influxdb) do
 
         data = {
           values: { value: value },
-          tags: { host: "#{self.host}"}
+          tags: { host: "#{self.host}" }
         }
-
         influxdb.write_point(key, data)
+      }
+    }
+    self.resource_statuses.each { |resource_status,data|
+      data.events.each { |val|
+        # for debug
+        # TODO :
+        # Split resource, resource_type, event status in tags ?
+        # Convert time to someting more readable (country format ? in config file)
+        # Add debug params
+        Puppet.info "#{resource_status} #{val} #{val.status} at #{val.time}"
+        events_m = 'events'
+        data = {
+         values: { text: "#{data.resource} #{val.status} at #{val.time}" },
+         tags: { host: "#{self.host}" }
+        }
+        influxdb.write_point(events_m, data)
       }
     }
   end
 end
+
