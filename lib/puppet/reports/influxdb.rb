@@ -1,3 +1,4 @@
+require 'puppet'
 require 'yaml'
 require 'socket'
 
@@ -23,7 +24,7 @@ Puppet::Reports.register_report(:influxdb) do
   DESC
 
   def process
-    Puppet.info "Sending status for #{self.host} to InfluxDB server at #{INFLUXDB_SERVER}"
+    Puppet.info "Sending metrics for #{self.host} to InfluxDB"
     influxdb = InfluxDB::Client.new("#{INFLUXDB_DB}", {
       host: INFLUXDB_SERVER,
       username: INFLUXDB_USER,

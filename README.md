@@ -14,15 +14,17 @@ Requirements
 
 This has been tested with this versions but it should work with older versions of Puppet:
 
-* Puppet 4.2.2 to Puppet 4.4.0
-* PuppetServer 2.1.1 to PuppetServer 2.3.0
-* InfluxDB 0.9.4.2 to InfluxDB 0.10.3
+* Puppet 4.2.2 to Puppet 4.4.1
+* PuppetServer 2.1.1 to PuppetServer 2.3.1
+* InfluxDB 0.9.4.2 to InfluxDB 0.11.1
 * Gem influxdb 0.2.2
 
 Will be tested soon: 
 
 * Puppet 3.8.x
 * Passenger Master & PuppetServer 1.1.2
+
+* based on report format v4 from puppet : https://docs.puppet.com/puppet/3.8/reference/format_report.html#report-format-4
 
 Installation & Usage
 --------------------
