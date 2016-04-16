@@ -1,4 +1,5 @@
 ---
+:debug: false
 :influxdb_server: 'localhost'
 :influxdb_port: 8086
 :influxdb_username: 'admin'
