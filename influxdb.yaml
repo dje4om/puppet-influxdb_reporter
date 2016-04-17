@@ -1,7 +1,8 @@
 ---
-:debug: false
+:influxdb_debug: false
 :influxdb_server: 'localhost'
 :influxdb_port: 8086
 :influxdb_username: 'admin'
 :influxdb_password: 'changeme'
-:influxdb_database: 'stats'
+:influxdb_database: 'puppet_reports'
+:influxdb_events_measurement: 'puppet_events'

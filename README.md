@@ -52,6 +52,9 @@ You could have to restart your master depending on you deployment type.
     `/etc/puppet/` for Puppet 3.x
     `/etc/puppetlabs/puppet/` for Puppet 4.x
 
+   setting influxdb_debug can be set to true to display events information in puppetserver logfile
+   setting influxdb_events_measurement define the measurement name in influxdb database
+
 4.  Enable pluginsync and reports on your master and clients in `puppet.conf`
 
         [master]
