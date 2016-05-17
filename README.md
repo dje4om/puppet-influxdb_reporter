@@ -9,8 +9,8 @@ Extended
 InfluxDB Reporter now push events to InfluxDB to allow you to display then to Grafana annotations !
 
 Example of query for annotations :
-All events: `select event from events where $timeFilter and host =~ /$host/`
-Only success events: `select event from events where $timeFilter and host =~ /$host/ and status = 'success'`
+* All events: `select event from events where $timeFilter and host =~ /$host/`
+* Only success events: `select event from events where $timeFilter and host =~ /$host/ and status = 'success'`
 
 Description
 -----------
