@@ -5,4 +5,5 @@
 :influxdb_username: 'admin'
 :influxdb_password: 'changeme'
 :influxdb_database: 'puppet_reports'
-:influxdb_events_measurement: 'puppet_events'
+:influxdb_pushevents: true
+:influxdb_events_measurement: 'events'

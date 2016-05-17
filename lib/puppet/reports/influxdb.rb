@@ -20,6 +20,7 @@ Puppet::Reports.register_report(:influxdb) do
   INFLUXDB_USER = config[:influxdb_username]
   INFLUXDB_PASS = config[:influxdb_password]
   INFLUXDB_DB = config[:influxdb_database]
+  INFLUXDB_PUSHEVENTS = config[:influxdb_pushevents]
   INFLUXDB_EVENTS_MEASUREMENT = config[:influxdb_events_measurement]
 
   desc <<-DESC
@@ -52,38 +53,40 @@ Puppet::Reports.register_report(:influxdb) do
     }
     end_time = Time.now
     Puppet.info "Metrics for #{self.host} submitted to InfluxDB in #{(end_time - beginning_time)*1000} ms"
-    # Events on resources
-    # success/failure/noop/audit events are sent
-    event = false
-    beginning_time = Time.now
-    self.resource_statuses.each { |resource_status,data|
-      data.events.each { |val|
-        if INFLUXDB_DEBUG
-          Puppet.info "#{data.resource_type} #{data.title} #{val} #{val.status} took #{data.evaluation_time} s"
-          Puppet.info "Time event occurs from report: #{val.time}"
-          Puppet.info "Current time: #{time}"
-          # Allow to see latency impact of sending events
-          Puppet.info "Time Drift between current time and event time in report: #{Time.now - val.time} ms"
-        end
-        event = true
-        measurement = INFLUXDB_EVENTS_MEASUREMENT
-        data = {
-         values: { resource: "#{data.resource}",
-                   event:"#{data.resource_type} #{data.title} #{val}",
-                   evaluation_time: data.evaluation_time },
-         tags: { host: "#{self.host}",
-                 resource_type: "#{data.resource_type}",
-                 status: "#{val.status}" },
-         # Push event at time it occurs from report
-         timestamp: val.time.to_i
+    if INFLUXDB_PUSHEVENTS
+      # Events on resources
+      # success/failure/noop/audit events are sent
+      event = false
+      beginning_time = Time.now
+      self.resource_statuses.each { |resource_status,data|
+        data.events.each { |val|
+          if INFLUXDB_DEBUG
+            Puppet.info "#{data.resource_type} #{data.title} #{val} #{val.status} took #{data.evaluation_time} s"
+            Puppet.info "Time event occurs from report: #{val.time}"
+            Puppet.info "Current time: #{time}"
+            # Allow to see latency impact of sending events
+            Puppet.info "Time Drift between current time and event time in report: #{Time.now - val.time} ms"
+          end
+          event = true
+          measurement = INFLUXDB_EVENTS_MEASUREMENT
+          data = {
+           values: { resource: "#{data.resource}",
+                     event:"#{data.resource_type} #{data.title} #{val}",
+                     evaluation_time: data.evaluation_time },
+           tags: { host: "#{self.host}",
+                   resource_type: "#{data.resource_type}",
+                   status: "#{val.status}" },
+           # Push event at time it occurs from report
+           timestamp: val.time.to_i
+          }
+          influxdb.write_point(measurement, data)
         }
-        influxdb.write_point(measurement, data)
       }
-    }
-    end_time = Time.now
-    # To display only if events occurs
-    if event
-      Puppet.info "Events for #{self.host} submitted to InfluxDB in #{(end_time - beginning_time)*1000} ms"
+      end_time = Time.now
+      # To display only if events occurs
+      if event
+        Puppet.info "Events for #{self.host} submitted to InfluxDB in #{(end_time - beginning_time)*1000} ms"
+      end
     end
   end
 end

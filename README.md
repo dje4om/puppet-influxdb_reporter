@@ -8,6 +8,10 @@ Extended
 --------
 InfluxDB Reporter now push events to InfluxDB to allow you to display then to Grafana annotations !
 
+Example of query for annotations :
+All events: `select event from events where $timeFilter and host =~ /$host/`
+Only success events: `select event from events where $timeFilter and host =~ /$host/ and status = 'success'`
+
 Description
 -----------
 
@@ -52,8 +56,9 @@ You could have to restart your master depending on you deployment type.
     `/etc/puppet/` for Puppet 3.x
     `/etc/puppetlabs/puppet/` for Puppet 4.x
 
-   setting influxdb_debug can be set to true to display events information in puppetserver logfile
-   setting influxdb_events_measurement define the measurement name in influxdb database
+   setting `influxdb_debug` can be set to true to display events information in puppetserver logfile
+   setting `influxdb_pushevents` allow you to disable sending events if you only want metrics from agents
+   setting `influxdb_events_measurement` define the measurement name in influxdb database
 
 4.  Enable pluginsync and reports on your master and clients in `puppet.conf`
 
