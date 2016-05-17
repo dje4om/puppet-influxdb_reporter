@@ -58,7 +58,6 @@ Puppet::Reports.register_report(:influxdb) do
     beginning_time = Time.now
     self.resource_statuses.each { |resource_status,data|
       data.events.each { |val|
-        # Push event at real time it occurs ?
         if INFLUXDB_DEBUG
           Puppet.info "#{data.resource_type} #{data.title} #{val} #{val.status} took #{data.evaluation_time} s"
           Puppet.info "Time event occurs from report: #{val.time}"
@@ -75,6 +74,7 @@ Puppet::Reports.register_report(:influxdb) do
          tags: { host: "#{self.host}",
                  resource_type: "#{data.resource_type}",
                  status: "#{val.status}" },
+         # Push event at time it occurs from report
          timestamp: val.time.to_i
         }
         influxdb.write_point(measurement, data)

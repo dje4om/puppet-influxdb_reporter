@@ -1,32 +1,30 @@
 influxdb_reporter
 ==============
 
-Just a little updated & tested version of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
+Rework and updated version of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
 Thx to him for this great idea to collect metrics of agents in InfluxDB ;)
 
 Extended
 --------
-Work in progress : Push events from resources
+InfluxDB Reporter now push events to InfluxDB to allow you to display then to Grafana annotations !
 
 Description
 -----------
 
-A Puppet report processor for sending metrics to an [InfluxDB](http://influxdb.com/) server.
+A Puppet report processor for sending metrics and events to an [InfluxDB](http://influxdb.com/) server.
+Allow you to diplay Puppet events as [Grafana annotations](http://docs.grafana.org/reference/annotations).
 
 Requirements
 ------------
 
 This has been tested with this versions but it should work with older versions of Puppet:
 
-* Puppet 4.2.2 to Puppet 4.4.1
-* PuppetServer 2.1.1 to PuppetServer 2.3.1
+* Puppet 3.8.x to Puppet 4.4.x
+* PuppetServer 1.1.x to PuppetServer 2.3.x
 * InfluxDB 0.9.4.2 to InfluxDB 0.11.1
-* Gem influxdb 0.2.4
+* Gem influxdb 0.2.4 to influxdb 0.3.0
 
-Will be tested soon: 
-
-* Puppet 3.8.x
-* Passenger Master & PuppetServer 1.1.2
+* Works on Passenger masters & PuppetServer masters
 
 * based on report format v4 from puppet : https://docs.puppet.com/puppet/3.8/reference/format_report.html#report-format-4
 
@@ -36,10 +34,12 @@ Installation & Usage
 1.  Install the `influxdb` gem on your Puppet master
 
 Legacy Webrick Masters or Passenger Masters
-* sudo gem install influxdb 
+* [sudo] gem install cause
+* [sudo] gem install influxdb
 
 PuppetServer
-* sudo puppetserver gem install influxdb
+* [sudo] puppetserver gem install cause
+* [sudo] puppetserver gem install influxdb
 
 You could have to restart your master depending on you deployment type.
 
@@ -70,7 +70,7 @@ You could have to restart your master depending on you deployment type.
 Author
 ------
 
-Derek Tracy <tracyde@gmail.com>
+Forked from Derek Tracy <tracyde@gmail.com>
 
 License
 -------
