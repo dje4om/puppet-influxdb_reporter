@@ -59,7 +59,7 @@ task :contributors do
 end
 
 desc "Run syntax, lint, and spec tests."
-task :test => [
+test_tasks :test => [
   :metadata_lint,
   :syntax,
   :lint,
@@ -67,3 +67,8 @@ task :test => [
   :spec,
 ]
 
+if Puppet.version.to_f <= 3.8 
+  test_tasks.delete(:rubocop) 
+end 
+desc "Run syntax, lint, and spec tests." 
+task :test => test_tasks 
