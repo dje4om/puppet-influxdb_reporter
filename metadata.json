@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "author": "dje4om",
   "summary": "A Puppet report processor for sending metrics to an InfluxDB server.",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/dje4om/puppet-influxdb-reporter",
   "issues_url": "https://github.com/dje4om/puppet-influxdb-reporter/issues",
   "project_page": "https://github.com/dje4om/puppet-influxdb-reporter",
