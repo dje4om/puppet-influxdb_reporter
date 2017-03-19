@@ -1,6 +1,8 @@
 influxdb_reporter
 ==============
 
+[![Build Status](https://travis-ci.org/dje4om/puppet-influxdb-reporter.svg?branch=master)](https://travis-ci.org/dje4om/puppet-influxdb-reporter)
+
 Rework and updated version of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
 Thx to him for this great idea to collect metrics of agents in InfluxDB ;)
 
