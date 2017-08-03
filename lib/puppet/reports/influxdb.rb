@@ -2,6 +2,9 @@ require 'puppet'
 require 'yaml'
 require 'socket'
 
+# TODO: allow to send events in specific database
+# TODO: define default values for params
+
 begin
   require 'influxdb'
   raise LoadError if Gem.loaded_specs['influxdb'].version < Gem::Version.create('0.2.4')
@@ -17,6 +20,7 @@ Puppet::Reports.register_report(:influxdb) do
   INFLUXDB_DEBUG = config[:influxdb_debug]
   INFLUXDB_SERVER = config[:influxdb_server]
   INFLUXDB_PORT = config[:influxdb_port]
+  INFLUXDB_RETRY = config[:influxdb_retry]
   INFLUXDB_USER = config[:influxdb_username]
   INFLUXDB_PASS = config[:influxdb_password]
   INFLUXDB_DB = config[:influxdb_database]
@@ -34,7 +38,7 @@ Puppet::Reports.register_report(:influxdb) do
       password: INFLUXDB_PASS,
       port: INFLUXDB_PORT,
       server: INFLUXDB_SERVER,
-      retry: 4
+      retry: INFLUXDB_RETRY
     })
     # Metrics from agents
     # Always sent if agent run successfuly
