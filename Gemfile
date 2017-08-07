@@ -6,7 +6,7 @@ group :test do
   gem 'rspec', '< 3.2.0'
   gem 'rspec-puppet'
   gem 'puppetlabs_spec_helper'
-  gem 'metadata-json-lint'
+  gem 'metadata-json-lint' if RUBY_VERSION >= '2.0.0'
   gem 'rspec-puppet-facts'
   gem 'rubocop', '0.33.0'
   gem 'simplecov', '>= 0.11.0'
