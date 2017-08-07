@@ -5,7 +5,9 @@ require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet/version'
 require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
-require 'metadata-json-lint/rake_task'
+if RUBY_VERSION > '1.9.3'
+  require 'metadata-json-lint/rake_task'
+end
 require 'rubocop/rake_task'
 
 if Puppet.version.to_f >= 4.9
@@ -48,10 +50,10 @@ end
 
 PuppetSyntax.exclude_paths = exclude_paths
 
-desc "Run acceptance tests"
-RSpec::Core::RakeTask.new(:acceptance) do |t|
-  t.pattern = 'spec/acceptance'
-end
+#desc "Run acceptance tests"
+#RSpec::Core::RakeTask.new(:acceptance) do |t|
+#  t.pattern = 'spec/acceptance'
+#end
 
 desc "Populate CONTRIBUTORS file"
 task :contributors do
@@ -59,10 +61,17 @@ task :contributors do
 end
 
 desc "Run syntax, lint, and spec tests."
-task :test => [
-  :metadata_lint,
-  :syntax,
-  :lint,
-  :spec,
-]
-
+if RUBY_VERSION > '1.9.3'
+  task :test => [
+    :metadata_lint,
+    :syntax,
+    :lint,
+    :spec,
+  ]
+else
+  task :test => [
+    :syntax,
+    :lint,
+    :spec,
+  ]
+end
