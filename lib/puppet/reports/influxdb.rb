@@ -31,7 +31,7 @@ Puppet::Reports.register_report(:influxdb) do
   DESC
 
   def process
-    influxdb = InfluxDB::Client.new("#{INFLUXDB_DB}", {
+    influxdb = InfluxDB::Client.new(INFLUXDB_DB, {
       host: INFLUXDB_SERVER,
       username: INFLUXDB_USER,
       password: INFLUXDB_PASS,
@@ -49,7 +49,7 @@ Puppet::Reports.register_report(:influxdb) do
 
         data = {
           values: { value: value },
-          tags: { host: "#{self.host}" }
+          tags: { host: self.host.to_s }
         }
         influxdb.write_point(key, data)
 	  end
@@ -73,12 +73,12 @@ Puppet::Reports.register_report(:influxdb) do
           event = true
           measurement = INFLUXDB_EVENTS_MEASUREMENT
           data = {
-           values: { resource: "#{data.resource}",
+           values: { resource: data.resource.to_s,
                      event:"#{data.resource_type} #{data.title} #{val}",
                      evaluation_time: data.evaluation_time },
-           tags: { host: "#{self.host}",
-                   resource_type: "#{data.resource_type}",
-                   status: "#{val.status}" },
+           tags: { host: self.host.to_s,
+                   resource_type: data.resource_type.to_s,
+                   status: val.status.to_s },
            # Push event at time it occurs from report
            timestamp: val.time.to_i
           }
