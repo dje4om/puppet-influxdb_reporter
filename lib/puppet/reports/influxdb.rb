@@ -8,12 +8,11 @@ require 'socket'
 begin
   require 'influxdb'
   raise LoadError if Gem.loaded_specs['influxdb'].version < Gem::Version.create('0.2.4')
-rescue LoadError => e
+rescue LoadError
   Puppet.info "You need the `influxdb` gem v0.2.4 minimum to use this InfluxDB report processor"
 end
 
 Puppet::Reports.register_report(:influxdb) do
-
   configfile = File.join([File.dirname(Puppet.settings[:config]), "influxdb.yaml"])
   raise(Puppet::ParseError, "InfluxDB report config file #{configfile} not readable") unless File.exist?(configfile)
   config = YAML.load_file(configfile)
@@ -43,8 +42,8 @@ Puppet::Reports.register_report(:influxdb) do
     # Metrics from agents
     # Always sent if agent run successfuly
     beginning_time = Time.now
-    self.metrics.each { |metric,data|
-      data.values.each { |val| 
+    self.metrics.each do |metric,data|
+      data.values.each do |val| 
         key = "puppet #{metric} #{val[1]}".downcase.tr(" ", "_")
         value = val[2].to_f
 
@@ -53,8 +52,8 @@ Puppet::Reports.register_report(:influxdb) do
           tags: { host: "#{self.host}" }
         }
         influxdb.write_point(key, data)
-      }
-    }
+	  end
+	end
     end_time = Time.now
     Puppet.info "Metrics for #{self.host} submitted to InfluxDB in #{(end_time - beginning_time)*1000} ms"
     if INFLUXDB_PUSHEVENTS
@@ -62,8 +61,8 @@ Puppet::Reports.register_report(:influxdb) do
       # success/failure/noop/audit events are sent
       event = false
       beginning_time = Time.now
-      self.resource_statuses.each { |resource_status,data|
-        data.events.each { |val|
+      self.resource_statuses.each do |resource_status,data|
+        data.events.each do |val|
           if INFLUXDB_DEBUG
             Puppet.info "#{data.resource_type} #{data.title} #{val} #{val.status} took #{data.evaluation_time} s"
             Puppet.info "Time event occurs from report: #{val.time}"
@@ -84,8 +83,8 @@ Puppet::Reports.register_report(:influxdb) do
            timestamp: val.time.to_i
           }
           influxdb.write_point(measurement, data)
-        }
-      }
+	    end
+	  end
       end_time = Time.now
       # To display only if events occurs
       if event
