@@ -8,11 +8,15 @@ group :test do
   gem 'puppetlabs_spec_helper'
   gem 'metadata-json-lint' if RUBY_VERSION >= '2.0.0'
   gem 'rspec-puppet-facts'
-  gem 'rubocop', '0.43.0'
+  if RUBY_VERSION < '2.0.0'
+    gem 'rubocop', '<= 0.33.0'
+  else
+    gem 'rubocop', '0.43.0'
+  end
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
   gem 'semantic_puppet'
-  gem 'public_suffix', '<=1.4.6' if RUBY_VERSION < '2.0.0'
+  gem 'public_suffix', '<= 1.4.6' if RUBY_VERSION < '2.0.0'
   gem 'safe_yaml', '~> 1.0.4' if RUBY_VERSION >= '2.2.0'
 
   gem "puppet-lint-absolute_classname-check"
