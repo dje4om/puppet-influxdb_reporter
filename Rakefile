@@ -60,14 +60,22 @@ task :contributors do
   system("git log --format='%aN' | sort -u > CONTRIBUTORS")
 end
 
+test_tasks = [
+  :metadata_lint,
+  :syntax,
+  :lint,
+  :rubocop,
+  :spec,
+]
+
+# Remove Rubocop test on Puppet 3.8
+if Puppet.version.to_f <= 3.8
+  test_tasks.delete(:rubocop)
+end
+
 desc "Run syntax, lint, and spec tests."
 if RUBY_VERSION > '1.9.3'
-  task :test => [
-    :metadata_lint,
-    :syntax,
-    :lint,
-    :spec,
-  ]
+  task :test => test_tasks
 else
   task :test => [
     :syntax,
@@ -75,3 +83,4 @@ else
     :spec,
   ]
 end
+
