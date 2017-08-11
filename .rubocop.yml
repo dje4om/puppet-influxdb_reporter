@@ -63,6 +63,9 @@ Style/RedundantSelf:
 Metrics/MethodLength:
   Enabled: false
 
+Metrics/AbcSize:
+  Enabled: false
+
 # DISABLED - not useful
 Style/WhileUntilModifier:
   Enabled: false
@@ -266,9 +269,6 @@ Style/Documentation:
   Enabled: false
 
 Style/DefWithParentheses:
-  Enabled: false
-
-Style/DeprecatedHashMethods:
   Enabled: false
 
 Style/DotPosition:
