@@ -3,37 +3,43 @@ influxdb_reporter
 
 [![Build Status](https://travis-ci.org/dje4om/puppet-influxdb-reporter.svg?branch=master)](https://travis-ci.org/dje4om/puppet-influxdb-reporter)
 
-Rework and updated version of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
-Thx to him for this great idea to collect metrics of agents in InfluxDB ;)
+Rework of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
+Still a fork because of many changes !
 
-Extended
+Thx for his great idea to collect metrics of agents in InfluxDB ;)
+
+Extended version
 --------
-InfluxDB Reporter now push events to InfluxDB to allow you to display then to Grafana annotations !
+InfluxDB Reporter allow you to push events to InfluxDB and displaying them as Grafana annotations !
 
 Example of query for annotations :
 * All events: `select event from events where $timeFilter and host =~ /$host/`
 * Only success events: `select event from events where $timeFilter and host =~ /$host/ and status = 'success'`
 
+Travis CI has been added for better quality (puppet & ruby)
+
 Description
 -----------
 
 A Puppet report processor for sending metrics and events to an [InfluxDB](http://influxdb.com/) server.
-Allow you to diplay Puppet events as [Grafana annotations](http://docs.grafana.org/reference/annotations).
+
+Allow you to display Puppet events as [Grafana annotations](http://docs.grafana.org/reference/annotations).
 
 Requirements
 ------------
 
-This has been tested with this versions but it should work with older versions of Puppet:
+This has been tested in production with these versions :
 
 * Puppet 3.8.x to Puppet 4.10.x
 * PuppetServer 1.1.x to PuppetServer 2.3.x
 * InfluxDB 0.9.4.2 to InfluxDB 1.3.x
-* Gem influxdb 0.2.4 to influxdb 0.3.0
+* Gem influxdb 0.2.4 to influxdb 0.3.x
 
 * Works on Passenger masters & PuppetServer masters
 
-* based on report format v4 from puppet : https://docs.puppet.com/puppet/3.8/reference/format_report.html#report-format-4
-* works with report format v5
+* originaly based on report format v4 from puppet : https://docs.puppet.com/puppet/3.8/reference/format_report.html#report-format-4
+* currently works with report format v5/v6
+* not yet tested with puppet 5.x but problably works, will be in a close release
 
 Installation & Usage
 --------------------
@@ -57,10 +63,13 @@ You could have to restart your master depending on you deployment type.
     IP and port and copy the file to puppet master configuration directory. An example file is included.
 
     `/etc/puppet/` for Puppet 3.x
+
     `/etc/puppetlabs/puppet/` for Puppet 4.x
 
    setting `influxdb_debug` can be set to true to display events information in puppetserver logfile
+
    setting `influxdb_pushevents` allow you to disable sending events if you only want metrics from agents
+
    setting `influxdb_events_measurement` define the measurement name in influxdb database
 
 4.  Enable pluginsync and reports on your master and clients in `puppet.conf`
@@ -75,9 +84,12 @@ You could have to restart your master depending on you deployment type.
 
 5.  Run the Puppet client and sync the report as a plugin
 
+6. Configure your grafana instance !
+
 Author
 ------
 
+Dje4om <dje4om@gmail.com>
 Forked from Derek Tracy <tracyde@gmail.com>
 
 License
