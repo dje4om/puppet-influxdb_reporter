@@ -1,7 +1,7 @@
 influxdb_reporter
 ==============
 
-[![Build Status](https://travis-ci.org/dje4om/puppet-influxdb-reporter.svg?branch=master)](https://travis-ci.org/dje4om/puppet-influxdb-reporter)
+[![Build Status](https://travis-ci.org/dje4om/puppet-influxdb_reporter.svg?branch=master)](https://travis-ci.org/dje4om/puppet-influxdb_reporter)
 
 Rework of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
 
