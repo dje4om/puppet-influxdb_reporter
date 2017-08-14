@@ -4,6 +4,7 @@ influxdb_reporter
 [![Build Status](https://travis-ci.org/dje4om/puppet-influxdb-reporter.svg?branch=master)](https://travis-ci.org/dje4om/puppet-influxdb-reporter)
 
 Rework of Derek Tracy's report processor: https://forge.puppetlabs.com/tracyde/influxdb_reporter
+
 Still a fork because of many changes !
 
 Thx for his great idea to collect metrics of agents in InfluxDB ;)
@@ -66,11 +67,11 @@ You could have to restart your master depending on you deployment type.
 
     `/etc/puppetlabs/puppet/` for Puppet 4.x
 
-   setting `influxdb_debug` can be set to true to display events information in puppetserver logfile
+    setting `influxdb_debug` can be set to true to display events information in puppetserver logfile
 
-   setting `influxdb_pushevents` allow you to disable sending events if you only want metrics from agents
+    setting `influxdb_pushevents` allow you to disable sending events if you only want metrics from agents
 
-   setting `influxdb_events_measurement` define the measurement name in influxdb database
+    setting `influxdb_events_measurement` define the measurement name in influxdb database
 
 4.  Enable pluginsync and reports on your master and clients in `puppet.conf`
 
