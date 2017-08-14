@@ -1,20 +1,23 @@
 {
   "name": "dje4om-influxdb_reporter",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "dje4om",
   "summary": "A Puppet report processor for sending metrics to an InfluxDB server.",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/dje4om/puppet-influxdb-reporter",
   "issues_url": "https://github.com/dje4om/puppet-influxdb-reporter/issues",
   "project_page": "https://github.com/dje4om/puppet-influxdb-reporter",
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 3.8.0 < 5.0.0"
+      "version_requirement": ">= 3.8.0 < 6.0.0"
     }
   ],
   "dependencies": [
-    {"version_requirement":">= 1.0.0","name":"puppetlabs-stdlib"}
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0 < 5.0.0"
+    }
   ]
 }
 
